@@ -6,6 +6,7 @@ import { FinalDate } from "./Date";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import Navigation from "./Navigation";
+import { DBURL } from "../DBUrl";
 
  const NewBook=()=>{
     const [Fullname,setFullname]=useState('')
@@ -46,7 +47,7 @@ import Navigation from "./Navigation";
 
     const SubmitBooking=(e)=>{
     e.preventDefault();
-    axios.post('http://localhost:5000/bookings',{Bookid,Fullname,Address,Telephone,Purpose,Amount,Cartype,BookingDate,DeliveryDate,Days,PaymentStatus,ConfirmPayment,Email,Service,DeliveryTime}).
+    axios.post(DBURL,{Bookid,Fullname,Address,Telephone,Purpose,Amount,Cartype,BookingDate,DeliveryDate,Days,PaymentStatus,ConfirmPayment,Email,Service,DeliveryTime}).
     then((res)=>{
 alert('saved successfully')
 generateInvoice()
@@ -65,7 +66,7 @@ generateInvoice()
 
         }
        
-        axios.get('http://localhost:5000/bookings/',{params:FindCode}).
+        axios.get(DBURL+'/',{params:FindCode}).
         then((res)=>{
             navigate('/invoice/'+res.data[0].id)
             

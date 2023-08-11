@@ -8,6 +8,7 @@ import { FinalDate } from "./Date";
 import axios from "axios";
 import Navigation from "./Navigation";
 import Swal from 'sweetalert2'
+import { DBURL } from "../DBUrl";
 const EditData=()=>{
     const [Data,setData]=useState([])
     const [Fullname,setFullname]=useState('')
@@ -47,7 +48,7 @@ const EditData=()=>{
             }
 
             useEffect(() => {
-                axios.get('http://localhost:5000/bookings/'+id).
+                axios.get(DBURL+'/'+id).
                 then((res)=>{
                   console.log(res.data.Bookid)
                    setBookid(res.data.Bookid)
@@ -82,7 +83,7 @@ const EditData=()=>{
                         /* Read more about isConfirmed, isDenied below */
                         if (result.isConfirmed) {
                            // alert('saved successfully')
-                           axios.put('http://localhost:5000/bookings/'+id,{Bookid,Fullname,Address,Telephone,Purpose,Amount,Cartype,BookingDate,DeliveryDate,Days,PaymentStatus,ConfirmPayment,Email,Service,DeliveryTime,id}).
+                           axios.put(DBURL+'/'+id,{Bookid,Fullname,Address,Telephone,Purpose,Amount,Cartype,BookingDate,DeliveryDate,Days,PaymentStatus,ConfirmPayment,Email,Service,DeliveryTime,id}).
                            then((res)=>{
                         }).catch((err)=>{
                             throw err

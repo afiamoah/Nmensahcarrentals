@@ -10,6 +10,7 @@ import Col from 'react-bootstrap/Col';
 import '../assets/css/front.css'
 import Navigation from "./Navigation";
 import Swal from 'sweetalert2'
+import { DBURL } from "../DBUrl";
 const DisplayBooking = () => {
     const [Data,setData]=useState([])
     const [FilterRecords,setFilterRecords]=useState('')
@@ -33,7 +34,7 @@ const DisplayBooking = () => {
 
 
     const Delete=(id)=>{
-        axios.delete('http://localhost:5000/bookings/'+id).
+        axios.delete(DBURL+id).
         then((res)=>{
             Swal.fire({
                 title: 'Do you want Delete this Booking ?',
@@ -158,7 +159,7 @@ const DisplayBooking = () => {
     ]
 
     useEffect(() => {
-      axios.get('http://localhost:5000/bookings').
+      axios.get(DBURL).
       then((res)=>{
         const sorting=[...res.data]
         const sortedData = sorting.sort((a, b) => b.id - a.id);
@@ -171,7 +172,7 @@ const DisplayBooking = () => {
     }, [])
 
     const allBookings=(e)=>{
-        axios.get('http://localhost:5000/bookings').
+        axios.get(DBURL).
         then((res)=>{
           const sorting=[...res.data]
           const sortedData = sorting.sort((a, b) => b.id - a.id);

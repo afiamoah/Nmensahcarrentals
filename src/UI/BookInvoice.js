@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { FinalDate } from "./Date";
 import axios from "axios";
+import { DBURL } from "../DBUrl";
 
 const Invoice=()=>{
     const [Data,setData]=useState([])
@@ -48,7 +49,7 @@ const Invoice=()=>{
             }
 
             useEffect(() => {
-                axios.get('http://localhost:5000/bookings/'+id).
+                axios.get(DBURL+'/'+id).
                 then((res)=>{
                   console.log(res.data.Bookid)
                    setBookid(res.data.Bookid)
@@ -84,7 +85,7 @@ const Invoice=()=>{
 
                 }
                 e.preventDefault()
-                axios.get('http://localhost:5000/bookings/',{params:FindCode}).
+                axios.get(DBURL,'/'+{params:FindCode}).
                 then((res)=>{
             navigate()
                     setData(res.data)

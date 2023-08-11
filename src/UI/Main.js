@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import Swal from 'sweetalert2'
+import { DBURL } from "../DBUrl";
 
  const MainPage=()=>{
     const [Fullname,setFullname]=useState('')
@@ -65,7 +66,7 @@ const sendEmail = () => {
 
     const SubmitBooking=(e)=>{
     e.preventDefault();
-    axios.post('http://localhost:5000/bookings',{Bookid,Fullname,Address,Telephone,Purpose,Amount,Cartype,BookingDate,DeliveryDate,Days,PaymentStatus,ConfirmPayment,Email,Service,DeliveryTime}).
+    axios.post(DBURL,{Bookid,Fullname,Address,Telephone,Purpose,Amount,Cartype,BookingDate,DeliveryDate,Days,PaymentStatus,ConfirmPayment,Email,Service,DeliveryTime}).
     then((res)=>{
         Swal.fire({
             title: 'Do you want Save this Booking ?',
@@ -99,7 +100,7 @@ sendEmail();
 
         }
        
-        axios.get('http://localhost:5000/bookings/',{params:FindCode}).
+        axios.get(DBURL,{params:FindCode}).
         then((res)=>{
             navigate('/invoice/'+res.data[0].id)
             
