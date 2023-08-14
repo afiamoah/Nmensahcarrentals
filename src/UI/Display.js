@@ -46,7 +46,7 @@ const DisplayBooking = () => {
                    // alert('saved successfully')
           
             
-                  Swal.fire('Cancelled', '', 'success')
+                  Swal.fire('Deleted Successfully', '', 'success')
                 } else if (result.isDenied) {
                   Swal.fire('Changes are not deleted', '', 'info')
                 }

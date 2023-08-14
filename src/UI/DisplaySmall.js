@@ -10,6 +10,7 @@ import Col from 'react-bootstrap/Col';
 import '../assets/css/front.css'
 import Navigation from "./Navigation";
 import { DBURL } from "../DBUrl";
+import Swal from 'sweetalert2'
 const DisplayBookingMobile = () => {
     const [Data,setData]=useState([])
     const [FilterRecords,setFilterRecords]=useState('')
@@ -31,23 +32,36 @@ const DisplayBookingMobile = () => {
 
 
 
-
     const Delete=(id)=>{
-        axios.delete('http://localhost:5000/bookings/'+id).
-        then((res)=>{
-    alert('deleted successfully')
-          console.log(res)
-    
-        }).catch((err)=>{
-          throw err
-        })
-   
-       }
-
-       const EditData=(id)=>{
-        navigate('/edit/'+id)
+      axios.delete(DBURL+'/'+id).
+      then((res)=>{
+          Swal.fire({
+              title: 'Do you want Delete this Booking ?',
+              showDenyButton: true,
+              showCancelButton: true,
+            }).then((result) => {
+              /* Read more about isConfirmed, isDenied below */
+              if (result.isConfirmed) {
+                 // alert('saved successfully')
         
-       }
+          
+                Swal.fire('Deleted Successfully', '', 'success')
+              } else if (result.isDenied) {
+                Swal.fire('Changes are not deleted', '', 'info')
+              }
+            })
+        console.log(res)
+  
+      }).catch((err)=>{
+        throw err
+      })
+ 
+     }
+
+     const EditData=(id)=>{
+      navigate('/edit/'+id)
+      
+     }
 
     const columns = [
 
@@ -104,7 +118,7 @@ const DisplayBookingMobile = () => {
     ]
 
     useEffect(() => {
-      axios.get('http://localhost:5000/bookings').
+      axios.get(DBURL).
       then((res)=>{
         const sorting=[...res.data]
         const sortedData = sorting.sort((a, b) => b.id - a.id);
@@ -117,7 +131,7 @@ const DisplayBookingMobile = () => {
     }, [])
 
     const allBookings=(e)=>{
-        axios.get('http://localhost:5000/bookings').
+        axios.get(DBURL).
         then((res)=>{
           const sorting=[...res.data]
           const sortedData = sorting.sort((a, b) => b.id - a.id);
