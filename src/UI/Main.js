@@ -2,13 +2,14 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState,useEffect } from "react";
-import { FinalDate } from "./Date";
+import { FinalDate,Reminder,noticeDate } from "./Date";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import Swal from 'sweetalert2'
 import { DBURL } from "../DBUrl";
+import NotificationDate from "./Date";
 
  const MainPage=()=>{
     const [Fullname,setFullname]=useState('')
@@ -31,6 +32,7 @@ import { DBURL } from "../DBUrl";
     const navigate=useNavigate()
     const form = useRef();
     const newBooking="new booking made please check dashboard"
+    const ReminderDate= NotificationDate(DeliveryDate)
 
 
 //send emal
@@ -66,7 +68,7 @@ const sendEmail = () => {
 
     const SubmitBooking=(e)=>{
     e.preventDefault();
-    axios.post(DBURL,{Bookid,Fullname,Address,Telephone,Purpose,Amount,Cartype,BookingDate,DeliveryDate,Days,PaymentStatus,ConfirmPayment,Email,Service,DeliveryTime}).
+    axios.post(DBURL,{Bookid,Fullname,Address,Telephone,Purpose,Amount,Cartype,BookingDate,DeliveryDate,Days,PaymentStatus,ConfirmPayment,Email,Service,DeliveryTime,ReminderDate}).
     then((res)=>{
         Swal.fire({
             title: 'Do you want Save this Booking ?',
