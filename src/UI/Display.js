@@ -34,7 +34,7 @@ const DisplayBooking = () => {
 
 
     const Delete=(id)=>{
-        axios.delete(DBURL+id).
+        axios.delete(DBURL+'/'+id).
         then((res)=>{
             Swal.fire({
                 title: 'Do you want Delete this Booking ?',
