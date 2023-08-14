@@ -232,7 +232,7 @@ return(
 		<div className="container">
 			<h1 className="best_taital">YOUR TRUSTED CHOICE FOR RELIABLE CAR RENTALS</h1>
 		
-		    <div className="bt_main">
+		    <div className="bt_main" id="getus">
 		    	<div  id="dbt" className="discover_bt"><a btn btn-success href="#booking" id="atag"><i className="fa fa-book"></i>  BOOK NOW</a></div>
                 <div id="dbt" className="discover_bt"><a id="atag" href="https://api.whatsapp.com/send?phone=+233242648325&text=Hello i need a car to rent"><i className="fab fa-whatsapp"></i>   CHART US</a></div>
 		    </div>
@@ -640,7 +640,7 @@ return(
                                 <button className="btn btn-primary w-100 py-3" type="submit">Book Now</button>
                                 </div>
                                 <div className="col-6">
-                                <button className="btn btn-warning w-100 py-3" type="button"> <a href="/code">Reclaim Booking Code</a></button>
+                                <button className="btn btn-warning w-100 py-3" type="button"> <a href="/code">Get Booking Code</a></button>
                                 </div>
                                 </div>
                                 </div>

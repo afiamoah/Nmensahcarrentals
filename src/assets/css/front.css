@@ -53,6 +53,7 @@ height: 197px
  #servicesrow{
      color:green
  }
+ 
 
  #bookingEdit{
      margin-top: 50px;
@@ -1053,3 +1054,8 @@ input.btn_main_3::placeholder {
 }
 
 
+@media (max-width: 768px) and (orientation: portrait) {
+     #getus {
+      margin-right: 10px;
+     }
+   }

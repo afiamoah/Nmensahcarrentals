@@ -220,7 +220,7 @@ return(
                                 <button className="btn btn-primary w-100 py-3 " type="submit">Book Now</button>
                                 </div>
                                 <div className="col-6">
-                                <button className="btn btn-warning w-100 py-3" type="submit"> <a href="/code">Reclaim Booking Code</a></button>
+                                <button className="btn btn-warning w-100 py-3" type="submit"> <a href="/code">Get Booking Code</a></button>
                                 </div>
                                 </div>
                                 </div>
