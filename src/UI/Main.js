@@ -637,10 +637,10 @@ return(
                                 
                                 <div className="row">
                                 <div className="col-6">
-                                <button className="btn btn-primary w-100 py-3" type="submit">Book Now</button>
+                                <button className="btn btn-primary w-100 py-4" type="submit">Book Now</button>
                                 </div>
-                                <div className="col-6">
-                                <button className="btn btn-warning w-100 py-3" type="button"> <a href="/code">Get Booking Code</a></button>
+                                <div className="col-6" >
+                                <button className="btn btn-warning w-100 py-4" type="button" id="getcode"> <a href="/code">Booking Code</a></button>
                                 </div>
                                 </div>
                                 </div>
@@ -666,7 +666,7 @@ return(
                 <h6 className="text-secondary text-uppercase">Contact Us</h6>
                 <h1 className="mb-5">Locate Us</h1>
             </div>
-            <div className="container  wow fadeInUp" data-wow-delay="0.1s">
+            <div className="container-fluid  wow fadeInUp" data-wow-delay="0.1s">
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7925.306761821768!2d-1.5983670719546128!3d6.6897849790737!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdb952ab803362b%3A0x1935dfe5c175b5ba!2sN.%20MENSAH%20CAR%20RENTALS!5e0!3m2!1sen!2sgh!4v1690543879604!5m2!1sen!2sgh" width="1200" height="450" style={{border:0}} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" />
             </div>
         </div>

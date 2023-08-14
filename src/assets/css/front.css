@@ -74,6 +74,13 @@ width: 200px;
    }
    }
 
+   @media screen and (max-width: 740px) {
+     iframe{
+   width:100%;
+  
+     }
+     }
+
 #btnbook,btnchart{
 border:1px solid red;
 border-radius: 10px;
@@ -1058,5 +1065,18 @@ input.btn_main_3::placeholder {
      #getus {
       margin-left: 90px;
       border: 2px solid red;
+     }
+   }
+
+   
+@media (max-width: 740px) and (orientation: portrait) {
+     #getus {
+      margin-left: 50px;
+  
+     }
+     #getcode{
+     height: 84px;
+
+
      }
    }
