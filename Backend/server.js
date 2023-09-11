@@ -61,7 +61,7 @@ rent.post('/mycode',(req,res)=>{
     }
     })
 
-})Telephone}=req.body
+})
 
     connect.query(FindCode,[Bookid,Telephone],(err,data)=>{
     if(err){
