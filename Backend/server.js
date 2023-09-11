@@ -1,7 +1,7 @@
 import  express from "express";
 import { connect } from "./src/dbproperties/db.js";
 import cors from 'cors'
-import { AddNewBooking,AllBookings,FindCode,FindAll,SearchAllBooking,ClientName,ClientTelephone,BookingCode,PendingBookings,DailyBooking,DeleteBooking,EditBooking,SearchAllBookingId} from "./src/dbproperties/queries.js";
+import { FindMyBookingCode,AddNewBooking,AllBookings,FindCode,FindAll,SearchAllBooking,ClientName,ClientTelephone,BookingCode,PendingBookings,DailyBooking,DeleteBooking,EditBooking,SearchAllBookingId} from "./src/dbproperties/queries.js";
 
 
 const port=process.env.PORT || 8000
@@ -34,6 +34,34 @@ rent.post('/newbooking',(req,res)=>{
 
 rent.post('/myid',(req,res)=>{
     const {Bookid,Telephone}=req.body
+
+    connect.query(FindCode,[Bookid,Telephone],(err,data)=>{
+    if(err){
+        throw err
+    }else{
+        console.log(data)
+        res.json(data)
+       
+    }
+    })
+
+})
+
+rent.post('/mycode',(req,res)=>{
+
+    const {DeliveryDate,Telephone,Amount}=req.body
+
+    connect.query(FindMyBookingCode,[DeliveryDate,Telephone,Amount],(err,data)=>{
+    if(err){
+        throw err
+    }else{
+       
+        res.json(data)
+       
+    }
+    })
+
+})Telephone}=req.body
 
     connect.query(FindCode,[Bookid,Telephone],(err,data)=>{
     if(err){
