@@ -55,7 +55,7 @@ rent.post('/mycode',(req,res)=>{
     if(err){
         throw err
     }else{
-       // console.log(data[0].id)
+       console.log(data[0].id)
         res.json(data)
        
     }
