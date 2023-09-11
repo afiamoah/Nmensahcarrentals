@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { FinalDate } from "./Date";
 import axios from "axios";
-import { DBURL } from "../DBUrl";
+import { DBURL, LocalUrl } from "../DBUrl";
 
 const Invoice=()=>{
     const [Data,setData]=useState([])
@@ -33,7 +33,7 @@ const Invoice=()=>{
 
         // /getting product id for each & every product to be added to store
         function RandomKey() {
-            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            const characters='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             let Key='BKN00';
             const length=4
             const Prefix='PRD00'
@@ -48,29 +48,31 @@ const Invoice=()=>{
             return Bookid
             }
 
+            const AllInvoice=()=>{
+              axios.post(LocalUrl+'seeid/',{id}).
+              then((res)=>{
+                console.log(res.data)
+                 setBookid(res.data[0].Bookid)
+                 setFullname((res.data[0].Fullname))
+                 setTelephone((res.data[0].Telephone))
+                 setAddress((res.data[0].Address))
+                 setPurpose((res.data[0].Purpose))
+                 setAmount((res.data[0].Amount))
+                 setCartype((res.data[0].Cartype))
+                 setDeliveryDate((res.data[0].DeliveryDate))
+                 setConfirmPayment((res.data[0].ConfirmPayment))
+                 setBookingDate((res.data[0].BookingDate))
+                 setDays((res.data[0].Days))
+                 setEmail((res.data[0].Email))
+                 setService((res.data[0].Service))
+                 setDeliveryTime((res.data[0].DeliveryTime))
+              }).catch((err)=>{
+                throw err
+})
+}
+
             useEffect(() => {
-                axios.get(DBURL+'/'+id).
-                then((res)=>{
-                  console.log(res.data.Bookid)
-                   setBookid(res.data.Bookid)
-                   setFullname((res.data.Fullname))
-                   setTelephone((res.data.Telephone))
-                   setAddress((res.data.Address))
-                   setPurpose((res.data.Purpose))
-                   setAmount((res.data.Amount))
-                   setCartype((res.data.Cartype))
-                   setDeliveryDate((res.data.DeliveryDate))
-                   setConfirmPayment((res.data.ConfirmPayment))
-                   setBookingDate((res.data.BookingDate))
-                   setDays((res.data.Days))
-                   setEmail((res.data.Email))
-                   setService((res.data.Service))
-                   setDeliveryTime((res.data.DeliveryTime))
-                   
-          
-                }).catch((err)=>{
-                  throw err
-                })
+              AllInvoice()
               }, [])
 
               const handlePrint = () => {

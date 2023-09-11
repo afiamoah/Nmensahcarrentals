@@ -2,11 +2,13 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState,useEffect } from "react";
-import { FinalDate } from "./Date";
+import { FinalDate,Reminder,noticeDate } from "./Date";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import Navigation from "./Navigation";
-import { DBURL } from "../DBUrl";
+import Swal from 'sweetalert2'
+import { DBURL,LocalUrl } from "../DBUrl";
+import NotificationDate from "./Date";
 
  const NewBook=()=>{
     const [Fullname,setFullname]=useState('')
@@ -24,6 +26,7 @@ import { DBURL } from "../DBUrl";
     const [Email,setEmail]=useState('')
     const [Service,setService]=useState('Pending')
     const [DeliveryTime,setDeliveryTime]=useState('0:00')
+    const ReminderDate= NotificationDate(DeliveryDate)
 
     const {id}=useParams()
     const navigate=useNavigate()
@@ -44,40 +47,54 @@ import { DBURL } from "../DBUrl";
      setBookid(Key)
     return Bookid
     }
-
     const SubmitBooking=(e)=>{
-    e.preventDefault();
-    axios.post(DBURL,{Bookid,Fullname,Address,Telephone,Purpose,Amount,Cartype,BookingDate,DeliveryDate,Days,PaymentStatus,ConfirmPayment,Email,Service,DeliveryTime}).
-    then((res)=>{
-alert('saved successfully')
-generateInvoice()
-      console.log(res)
-
-    }).catch((err)=>{
-      throw err
-    })
-    
-    }
-
-    const generateInvoice=()=>{
-        const FindCode={
-            Telephone:Telephone,
-            Bookid:Bookid,
-
-        }
-       
-        axios.get(DBURL+'/',{params:FindCode}).
+        e.preventDefault();
+        axios.post(LocalUrl+"newbooking",{Bookid,Fullname,Address,Telephone,Purpose,Amount,Cartype,BookingDate,DeliveryDate,Days,PaymentStatus,ConfirmPayment,Email,Service,DeliveryTime,ReminderDate}).
         then((res)=>{
-            navigate('/invoice/'+res.data[0].id)
+            Swal.fire({
+                title: 'Do you want Save this Booking ?',
+                showDenyButton: true,
+                showCancelButton: true,
+              }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                   // alert('saved successfully')
+    generateInvoice();
+    // sendEmail();
+    // GetId();
+          
             
-          console.log(res.data)
-          alert(res.data[0].Fullname)
+                  Swal.fire('Saved', '', 'success')
+                } else if (result.isDenied) {
+                  Swal.fire('Changes are not saved', '', 'info')
+                }
+              })
+    
     
         }).catch((err)=>{
-          alert("No SUCH RECORD EXIST.PLEASE CHECK IF CREDENTIALS PROVIDED ARE CORRECT")
+          throw err
         })
-        
         }
+
+        const generateInvoice=()=>{
+            // const FindCode={
+            //     Telephone:Telephone,
+            //     Bookid:Bookid,
+    
+            // }
+           
+            axios.post(LocalUrl+"myid",{Bookid,Telephone}).
+            then((res)=>{
+                navigate('/invoice/'+res.data[0].id)
+              console.log(res.data)
+            
+        
+            }).catch((err)=>{
+                throw err
+              alert("No SUCH RECORD EXIST.PLEASE CHECK IF CREDENTIALS PROVIDED ARE CORRECT")
+            })
+            
+            }
 
    
 

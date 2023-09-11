@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { FinalDate } from "./Date";
 import axios from "axios";
 import Navigation from "./Navigation";
+import { DBURL,LocalUrl,Local } from "../DBUrl";
 
 const BookingCode=()=>{
     const [Data,setData]=useState([])
@@ -74,22 +75,23 @@ const BookingCode=()=>{
             //     })
             //   }, [])
 
-              const EditBooking=(e)=>{
+              const FindBooking=(e)=>{
                 e.preventDefault()
-                const FindCode={
-                    DeliveryDate:DeliveryDate,
-                    Telephone:Telephone,
-                Amount:Amount,
+                // const FindCode={
+                //     DeliveryDate:DeliveryDate,
+                //     Telephone:Telephone,
+                // Amount:Amount,
 
-                }
+                // }
                 
-                axios.get('http://localhost:5000/bookings/',{params:FindCode}).
+                // axios.get(LocalUrl,{params:FindCode}).
+                //axios.post(Local+"mycode",{DeliveryDate,Telephone,Amount}).
+                 axios.post(LocalUrl+"mycode",{DeliveryDate,Telephone,Amount}).
                 then((res)=>{    
-                    navigate('/invoice/'+res.data[0].id)
-                    
+                    navigate('/invoice/'+res.data[0].id)  
             
                 }).catch((err)=>{
-                  alert("No SUCH RECORD EXIST.PLEASE CHECK IF CREDENTIALS PROVIDED ARE CORRECT"+err)
+                  alert("No SUCH RECORD EXIST.PLEASE CHECK IF CREDENTIALS PROVIDED ARE CORRECT  "+err)
                 })
                 
                 }
@@ -103,7 +105,7 @@ const BookingCode=()=>{
                     <div className="bg-light text-center p-5">
                         <h1 className="mb-4">Find My Booking Code</h1>
                         <p style={{color:'green'}}>Enter Delivery date,mobile number & exact amount paid to find your booking code</p>
-                        <form onSubmit={EditBooking} > 
+                        <form onSubmit={FindBooking} > 
                         <div className="col-12">                    
                         <input type="date"  className="form-control border-0" placeholder="MM/DD/YYYY"  style={{height: 55}} value={DeliveryDate}  onChange={e=>setDeliveryDate(e.target.value)}/>
                                 </div>

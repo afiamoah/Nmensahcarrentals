@@ -8,7 +8,7 @@ import { FinalDate } from "./Date";
 import axios from "axios";
 import Navigation from "./Navigation";
 import Swal from 'sweetalert2'
-import { DBURL } from "../DBUrl";
+import { DBURL, LocalUrl } from "../DBUrl";
 const EditData=()=>{
     const [Data,setData]=useState([])
     const [Fullname,setFullname]=useState('')
@@ -48,23 +48,23 @@ const EditData=()=>{
             }
 
             useEffect(() => {
-                axios.get(DBURL+'/'+id).
+                axios.post(LocalUrl+'searchid/',{id}).
                 then((res)=>{
-                  console.log(res.data.Bookid)
-                   setBookid(res.data.Bookid)
-                   setFullname((res.data.Fullname))
-                   setTelephone((res.data.Telephone))
-                   setAddress((res.data.Address))
-                   setPurpose((res.data.Purpose))
-                   setAmount((res.data.Amount))
-                   setCartype((res.data.Cartype))
-                   setDeliveryDate((res.data.DeliveryDate))
-                   setConfirmPayment((res.data.ConfirmPayment))
-                   setBookingDate((res.data.BookingDate))
-                   setDays((res.data.Days))
-                   setEmail((res.data.Email))
-                   setService((res.data.Service))
-                   setDeliveryTime((res.data.DeliveryTime))
+                  console.log(res.data[0].Bookid)
+                   setBookid(res.data[0].Bookid)
+                   setFullname((res.data[0].Fullname))
+                   setTelephone((res.data[0].Telephone))
+                   setAddress((res.data[0].Address))
+                   setPurpose((res.data[0].Purpose))
+                   setAmount((res.data[0].Amount))
+                   setCartype((res.data[0].Cartype))
+                   setDeliveryDate((res.data[0].DeliveryDate))
+                   setConfirmPayment((res.data[0].ConfirmPayment))
+                   setBookingDate((res.data[0].BookingDate))
+                   setDays((res.data[0].Days))
+                   setEmail((res.data[0].Email))
+                   setService((res.data[0].Service))
+                   setDeliveryTime((res.data[0].DeliveryTime))
                    
           
                 }).catch((err)=>{
@@ -83,7 +83,7 @@ const EditData=()=>{
                         /* Read more about isConfirmed, isDenied below */
                         if (result.isConfirmed) {
                            // alert('saved successfully')
-                           axios.put(DBURL+'/'+id,{Bookid,Fullname,Address,Telephone,Purpose,Amount,Cartype,BookingDate,DeliveryDate,Days,PaymentStatus,ConfirmPayment,Email,Service,DeliveryTime,id}).
+                           axios.post(LocalUrl+'edit',{Fullname,Address,Telephone,Purpose,Amount,Cartype,BookingDate,DeliveryDate,Days,PaymentStatus,ConfirmPayment,Email,Service,DeliveryTime,id}).
                            then((res)=>{
                         }).catch((err)=>{
                             throw err

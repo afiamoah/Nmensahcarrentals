@@ -15,12 +15,7 @@ export let Y,M,D,noticeDate;
 if(month<10){
 
  FinalDate=`${year}-${"0"+month}-${day}`
- Reminder = new Date(FinalDate);
- Reminder.setDate(Reminder.getDate() - 2);
-  Y=Reminder.getFullYear()
-  M=Reminder.getMonth() 
-  D=Reminder.getDate();
-  noticeDate=`${Y}-${"0"+M}-${D}`
+
   
 
 
@@ -63,6 +58,33 @@ if(day<10){
           D=Reminder.getDate();
           noticeDate=`${Y}-${"0"+M}-${D}`
           return noticeDate
+           
+          }
+   }
+
+   export const NotificationDateWeek=(MyDate)=>{
+
+    if(month<10){
+        ReminderWeek = new Date(MyDate);
+        ReminderWeek .setDate(ReminderWeek .getDate() - 5);
+        Y=ReminderWeek .getFullYear()
+         M=ReminderWeek .getMonth() 
+         D=ReminderWeek .getDate();
+         noticeDateWeek =`${Y}-${"0"+M}-${D}`
+         return noticeDateWeek 
+       
+       
+       }
+       
+       if(day<10){
+       
+           ReminderWeek  = new Date(MyDate);
+          ReminderWeek .setDate(ReminderWeek .getDate() - 2);
+          Y=ReminderWeek .getFullYear()
+          M=ReminderWeek .getMonth() 
+          D=ReminderWeek .getDate();
+          noticeDateWeek =`${Y}-${"0"+M}-${D}`
+          return noticeDateWeek 
            
           }
    }

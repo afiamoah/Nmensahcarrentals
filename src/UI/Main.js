@@ -8,7 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import Swal from 'sweetalert2'
-import { DBURL } from "../DBUrl";
+import { DBURL,LocalUrl } from "../DBUrl";
 import NotificationDate from "./Date";
 
  const MainPage=()=>{
@@ -27,17 +27,52 @@ import NotificationDate from "./Date";
     const [Email,setEmail]=useState('')
     const [Service,setService]=useState('Pending')
     const [DeliveryTime,setDeliveryTime]=useState('0:00')
+    const [Data,setData]=useState([])
+    const [MyDate,setMyDate]=useState()
 
     const {id}=useParams()
     const navigate=useNavigate()
     const form = useRef();
-    const newBooking="new booking made please check dashboard"
+    const newBooking="NEW BOOKING FROM  "+ Fullname+" PLEASE CHECK DASHBOARD"
     const ReminderDate= NotificationDate(DeliveryDate)
+
+    const notifyDelivery=()=>{
+        axios.get(DBURL).
+        then((res)=>{
+            const timer = setTimeout(()=>{
+     setData(res.data)
+            // console.log(res.data)
+            const checkNotify=res.data.filter((date)=>{
+                console.log(date.DeliveryDate)
+        if(date.DeliveryDate === FinalDate){
+            alert('delivery date is today')
+            return date
+        }
+            })
+        //     setMyDate(checkNotify)
+        //    // console.log(MyDate)
+        //     if(MyDate === FinalDate){
+              
+        //     }          
+  }, 2000);
+
+  return timer
+           
+
+        }).catch((err)=>{
+console.log(err)
+        })
+    }
+
+
+useEffect(() => {
+    notifyDelivery();
+}, [])
+
 
 
 //send emal
 const sendEmail = () => {
-    
 //  emailjs.sendForm('service_uk9geig', 'template_ygsqean', form.current, 'M8WCKeewSaV95ZrUk')
     emailjs.sendForm('service_tu3nucf', 'template_uv94tx4', form.current, 'M8WCKeewSaV95ZrUk')
       .then((result) => {
@@ -68,7 +103,7 @@ const sendEmail = () => {
 
     const SubmitBooking=(e)=>{
     e.preventDefault();
-    axios.post(DBURL,{Bookid,Fullname,Address,Telephone,Purpose,Amount,Cartype,BookingDate,DeliveryDate,Days,PaymentStatus,ConfirmPayment,Email,Service,DeliveryTime,ReminderDate}).
+    axios.post(LocalUrl+"newbooking",{Bookid,Fullname,Address,Telephone,Purpose,Amount,Cartype,BookingDate,DeliveryDate,Days,PaymentStatus,ConfirmPayment,Email,Service,DeliveryTime,ReminderDate}).
     then((res)=>{
         Swal.fire({
             title: 'Do you want Save this Booking ?',
@@ -79,7 +114,7 @@ const sendEmail = () => {
             if (result.isConfirmed) {
                // alert('saved successfully')
 generateInvoice();
-sendEmail();
+ sendEmail();
       
         
               Swal.fire('Saved', '', 'success')
@@ -92,24 +127,31 @@ sendEmail();
     }).catch((err)=>{
       throw err
     })
-    
     }
+const GetId=()=>{
+    axios.post(LocalUrl+"myid",{Telephone}).
+    then((res)=>{
+        console.log(res.data)
 
+    }).catch((err)=>{
+        throw err
+    })
+
+}
     const generateInvoice=()=>{
-        const FindCode={
-            Telephone:Telephone,
-            Bookid:Bookid,
+        // const FindCode={
+        //     Telephone:Telephone,
+        //     Bookid:Bookid,
 
-        }
+        // }
        
-        axios.get(DBURL,{params:FindCode}).
+        axios.post(LocalUrl+"myid",{Bookid,Telephone}).
         then((res)=>{
             navigate('/invoice/'+res.data[0].id)
-            
           console.log(res.data)
-         // alert(res.data[0].Fullname)
     
         }).catch((err)=>{
+            throw err
           alert("No SUCH RECORD EXIST.PLEASE CHECK IF CREDENTIALS PROVIDED ARE CORRECT")
         })
         

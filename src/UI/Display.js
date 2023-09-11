@@ -10,8 +10,10 @@ import Col from 'react-bootstrap/Col';
 import '../assets/css/front.css'
 import Navigation from "./Navigation";
 import Swal from 'sweetalert2'
-import { DBURL } from "../DBUrl";
+import { DBURL,LocalUrl } from "../DBUrl";
 import NotificationDate from "./Date";
+
+
 const DisplayBooking = () => {
     const [Data,setData]=useState([])
     const [FilterRecords,setFilterRecords]=useState('')
@@ -35,7 +37,8 @@ const DisplayBooking = () => {
 
 
     const Delete=(id)=>{
-        axios.delete(DBURL+'/'+id).
+        // axios.delete(DBURL+'/'+id).
+        axios.post(LocalUrl+'delete',{id}).
         then((res)=>{
             Swal.fire({
                 title: 'Do you want Delete this Booking ?',
@@ -160,11 +163,11 @@ const DisplayBooking = () => {
     ]
 
     useEffect(() => {
-      axios.get(DBURL).
+      axios.post(LocalUrl+'allbookings').
       then((res)=>{
         const sorting=[...res.data]
         const sortedData = sorting.sort((a, b) => b.id - a.id);
-         setData(sortedData)
+         setData(res.data)
          setFilterRecords(res.data)
 
       }).catch((err)=>{
@@ -173,11 +176,11 @@ const DisplayBooking = () => {
     }, [])
 
     const allBookings=(e)=>{
-        axios.get(DBURL).
+        axios.post(LocalUrl+'allbookings').
         then((res)=>{
           const sorting=[...res.data]
           const sortedData = sorting.sort((a, b) => b.id - a.id);
-           setData(sortedData)
+           setData(res.data)
            setFilterRecords(res.data)
   
         }).catch((err)=>{
@@ -221,7 +224,7 @@ setData(newdata)
     
     const filterSearchNumber=(e)=>{
         if(e.target.value!==''){
-const newdata=FilterRecords.filter(row=> row.Telephon.toLowerCase().includes(e.target.value.toLowerCase()))
+const newdata=FilterRecords.filter(row=> row.Telephone.toLowerCase().includes(e.target.value.toLowerCase()))
 
 setData(newdata)
         }else{

@@ -9,7 +9,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import '../assets/css/front.css'
 import Navigation from "./Navigation";
-import { DBURL } from "../DBUrl";
+import { DBURL,LocalUrl } from "../DBUrl";
 import Swal from 'sweetalert2'
 const DisplayBookingMobile = () => {
     const [Data,setData]=useState([])
@@ -33,7 +33,7 @@ const DisplayBookingMobile = () => {
 
 
     const Delete=(id)=>{
-      axios.delete(DBURL+'/'+id).
+      axios.post(LocalUrl+'delete',{id}).
       then((res)=>{
           Swal.fire({
               title: 'Do you want Delete this Booking ?',
@@ -118,11 +118,11 @@ const DisplayBookingMobile = () => {
     ]
 
     useEffect(() => {
-      axios.get(DBURL).
+      axios.post(LocalUrl+'allbookings').
       then((res)=>{
         const sorting=[...res.data]
         const sortedData = sorting.sort((a, b) => b.id - a.id);
-         setData(sortedData)
+         setData(res.data)
          setFilterRecords(res.data)
 
       }).catch((err)=>{
@@ -131,12 +131,12 @@ const DisplayBookingMobile = () => {
     }, [])
 
     const allBookings=(e)=>{
-        axios.get(DBURL).
-        then((res)=>{
-          const sorting=[...res.data]
-          const sortedData = sorting.sort((a, b) => b.id - a.id);
-           setData(sortedData)
-           setFilterRecords(res.data)
+      axios.post(LocalUrl+'allbookings').
+      then((res)=>{
+        const sorting=[...res.data]
+        const sortedData = sorting.sort((a, b) => b.id - a.id);
+         setData(res.data)
+         setFilterRecords(res.data)
   
         }).catch((err)=>{
           throw err
