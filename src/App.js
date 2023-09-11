@@ -37,7 +37,7 @@ function App() {
     <Route path='/invoice/:id' element={<Invoice/>}></Route>
   <Route path='/display' element={<DisplayBooking/>}></Route>
   <Route path='/mobileview' element={<DisplayBookingMobile />}></Route>
-  <Route path='/access' element={<AdminAccess />}></Route>
+  <Route path='/admin' element={<AdminAccess />}></Route>
   <Route path='/dashboard' element={<DashBoard />}></Route>
   <Route path='/newbook' element={<NewBook />}></Route>
   </Routes>
