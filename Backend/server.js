@@ -55,7 +55,7 @@ rent.post('/mycode',(req,res)=>{
     if(err){
         throw err
     }else{
-       
+       // console.log(data[0].id)
         res.json(data)
        
     }
@@ -63,17 +63,6 @@ rent.post('/mycode',(req,res)=>{
 
 })
 
-    connect.query(FindCode,[Bookid,Telephone],(err,data)=>{
-    if(err){
-        throw err
-    }else{
-        console.log(data)
-        res.json(data)
-       
-    }
-    })
-
-})
 
 rent.post('/seeid',(req,res)=>{
     const {id}=req.body
