@@ -81,10 +81,8 @@ const BookingCode=()=>{
                 //     DeliveryDate:DeliveryDate,
                 //     Telephone:Telephone,
                 // Amount:Amount,
-
                 // }
-                
-                // axios.get(LocalUrl,{params:FindCode}).
+
                 //axios.post(Local+"mycode",{DeliveryDate,Telephone,Amount}).
                  axios.post(LocalUrl+"mycode",{DeliveryDate,Telephone,Amount}).
                 then((res)=>{    
