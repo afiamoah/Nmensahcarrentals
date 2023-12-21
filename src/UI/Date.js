@@ -19,19 +19,34 @@ if(month<10){
   
 
 
+}else{
+    if(month>=10){
+   
+ FinalDate=`${year}-${month}-${day}` 
+    }
 }
 
-if(day<10){
+// if(day<10){
 
-    FinalDate=`${year}-${month}-${'0'+day}`
-    Reminder = new Date('2023-08-14');
-   Reminder.setDate(Reminder.getDate() - 2);
-   Y=Reminder.getFullYear()
-   M=Reminder.getMonth() 
-   D=Reminder.getDate();
-   noticeDate=`${Y}-${"0"+M}-${D}`
+//     FinalDate=`${year}-${month}-${'0'+day}`
+//     Reminder = new Date('2023-08-14');
+//    Reminder.setDate(Reminder.getDate() - 2);
+//    Y=Reminder.getFullYear()
+//    M=Reminder.getMonth() 
+//    D=Reminder.getDate();
+//    noticeDate=`${Y}-${"0"+M}-${D}`
     
-   }
+//    }else{
+    
+//     FinalDate=`${year}-${month}-${day}`
+//     Reminder = new Date('2023-08-14');
+//    Reminder.setDate(Reminder.getDate() - 2);
+//    Y=Reminder.getFullYear()
+//    M=Reminder.getMonth() 
+//    D=Reminder.getDate();
+//    noticeDate=`${Y}-${"0"+M}-${D}`
+
+//    }
 ///////////////////////////////////////////
 
 
@@ -47,19 +62,41 @@ if(day<10){
          return noticeDate
        
        
+       }else{
+        if(month>=10){
+            Reminder = new Date(MyDate);
+            Reminder.setDate(Reminder.getDate() - 2);
+            Y=Reminder.getFullYear()
+             M=Reminder.getMonth() 
+             D=Reminder.getDate();
+             noticeDate=`${Y}-${M}-${D}`
+             return noticeDate
+           
+
+        }
        }
        
-       if(day<10){
+    //    if(day<10){
        
-           Reminder = new Date(MyDate);
-          Reminder.setDate(Reminder.getDate() - 2);
-          Y=Reminder.getFullYear()
-          M=Reminder.getMonth() 
-          D=Reminder.getDate();
-          noticeDate=`${Y}-${"0"+M}-${D}`
-          return noticeDate
+    //        Reminder = new Date(MyDate);
+    //       Reminder.setDate(Reminder.getDate() - 2);
+    //       Y=Reminder.getFullYear()
+    //       M=Reminder.getMonth() 
+    //       D=Reminder.getDate();
+    //       noticeDate=`${Y}-${"0"+M}-${D}`
+    //       return noticeDate
            
-          }
+    //       }else{
+    //         if(day>=10){
+    //             Reminder = new Date(MyDate);
+    //             Reminder.setDate(Reminder.getDate() - 2);
+    //             Y=Reminder.getFullYear()
+    //             M=Reminder.getMonth() 
+    //             D=Reminder.getDate();
+    //             noticeDate=`${Y}-${"0"+M}-${D}`
+    //             return noticeDate   
+    //         }
+    //       }
    }
 
    export const NotificationDateWeek=(MyDate)=>{

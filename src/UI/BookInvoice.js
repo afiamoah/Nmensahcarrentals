@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { FinalDate } from "./Date";
 import axios from "axios";
-import { DBURL, LocalUrl } from "../DBUrl";
+import { DBURL, LocalUrl,Local } from "../DBUrl";
 
 const Invoice=()=>{
     const [Data,setData]=useState([])
@@ -49,7 +49,7 @@ const Invoice=()=>{
             }
 
             const AllInvoice=()=>{
-              axios.post(LocalUrl+'seeid/',{id}).
+              axios.post(Local+'seeid/',{id}).
               then((res)=>{
                 console.log(res.data)
                  setBookid(res.data[0].Bookid)
@@ -66,6 +66,7 @@ const Invoice=()=>{
                  setEmail((res.data[0].Email))
                  setService((res.data[0].Service))
                  setDeliveryTime((res.data[0].DeliveryTime))
+                 setPaymentStatus((res.data[0].PaymentStatus))
               }).catch((err)=>{
                 throw err
 })
@@ -87,7 +88,7 @@ const Invoice=()=>{
 
                 }
                 e.preventDefault()
-                axios.get(DBURL,'/'+{params:FindCode}).
+                axios.get(Local,'/'+{params:FindCode}).
                 then((res)=>{
             navigate()
                     setData(res.data)
@@ -180,10 +181,7 @@ const Invoice=()=>{
           </table>
         </div>
         <div className="row">
-          <div className="col-xl-8">
-            <p className="ms-3">Always Reprint this invoice after payment confirmation by admin</p>
-
-          </div>
+          
           <div className="col-xl-3">
             <ul className="list-unstyled">
             </ul>
@@ -201,7 +199,10 @@ const Invoice=()=>{
                style={{background:'#60bdf3'}} id="myprint">Print Now</button>
 
           </div>
-          
+          <div className="col-xl-8" id="myprint">
+            <p className="ms-3">Always Reprint this invoice after payment confirmation by admin</p>
+
+          </div>
         </div>
 
       </div>

@@ -9,7 +9,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import '../assets/css/front.css'
 import Navigation from "./Navigation";
-import { DBURL,LocalUrl } from "../DBUrl";
+import { DBURL,LocalUrl,Local } from "../DBUrl";
 import Swal from 'sweetalert2'
 const DisplayBookingMobile = () => {
     const [Data,setData]=useState([])
@@ -33,7 +33,7 @@ const DisplayBookingMobile = () => {
 
 
     const Delete=(id)=>{
-      axios.post(LocalUrl+'delete',{id}).
+      axios.post(Local+'delete',{id}).
       then((res)=>{
           Swal.fire({
               title: 'Do you want Delete this Booking ?',
@@ -86,7 +86,7 @@ const DisplayBookingMobile = () => {
             return (
               <>
                 <button style={{backgroundColor:'white',color:'blue',border:'white',width:'80px'}}
-                  className="btn btn-primary"
+                  className="btn btn-white"
                   onClick={() => {
                     EditData(id);
                   }}
@@ -118,7 +118,7 @@ const DisplayBookingMobile = () => {
     ]
 
     useEffect(() => {
-      axios.post(LocalUrl+'allbookings').
+      axios.post(Local+'allbookings').
       then((res)=>{
         const sorting=[...res.data]
         const sortedData = sorting.sort((a, b) => b.id - a.id);
@@ -126,12 +126,12 @@ const DisplayBookingMobile = () => {
          setFilterRecords(res.data)
 
       }).catch((err)=>{
-        throw err
+        console.log(err.toJSON());
       })
     }, [])
 
     const allBookings=(e)=>{
-      axios.post(LocalUrl+'allbookings').
+      axios.post(Local+'allbookings').
       then((res)=>{
         const sorting=[...res.data]
         const sortedData = sorting.sort((a, b) => b.id - a.id);
@@ -228,15 +228,15 @@ setData(newdata)
         < Navigation />
             <div>
                 <div className="container-fluid" style={{display:'flex',flexDirection:'column',justifyContent:"space-around",alignItems:"center",marginBottom:"10px"}}>
-                <button className="btn btn-success" onClick={allBookings} style={btn}>All Bookings</button>
-                <button className="btn btn-success" onClick={dayBookings} style={btn}>Bookings for the Day</button>
-                <button className="btn btn-success" onClick={pendingBookings} style={btn}>Pending Payments</button>
+                <button className="btn btn-white text-success" onClick={allBookings} style={btn}>All Bookings</button>
+                <button className="btn btn-white text-success" onClick={dayBookings} style={btn}>Bookings for the Day</button>
+                <button className="btn btn-white text-success" onClick={pendingBookings} style={btn}>Pending Payments</button>
                 </div>
             
                 <div className="container m-4">
           <div className="row mb-2">
 <div className="col-6">
-<input type="text" className="form-control border-2 m-2" placeholder="Search by Booking Code" onChange={filterSearchCode} style={btns}/>  
+<input type="text" className="form-control border-2 m-2 border border-success " placeholder="Search by Booking Code" onChange={filterSearchCode} style={btns}/>  
 </div>
 <div className="col-6">
 <input type="text" className="form-control border-2 m-2" placeholder="search by Client Name" onChange={filterSearchName} style={btns}/>     

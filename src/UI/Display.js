@@ -10,7 +10,7 @@ import Col from 'react-bootstrap/Col';
 import '../assets/css/front.css'
 import Navigation from "./Navigation";
 import Swal from 'sweetalert2'
-import { DBURL,LocalUrl } from "../DBUrl";
+import { DBURL,LocalUrl,Local } from "../DBUrl";
 import NotificationDate from "./Date";
 
 
@@ -38,7 +38,7 @@ const DisplayBooking = () => {
 
     const Delete=(id)=>{
         // axios.delete(DBURL+'/'+id).
-        axios.post(LocalUrl+'delete',{id}).
+        axios.post(Local+'delete',{id}).
         then((res)=>{
             Swal.fire({
                 title: 'Do you want Delete this Booking ?',
@@ -163,7 +163,7 @@ const DisplayBooking = () => {
     ]
 
     useEffect(() => {
-      axios.post(LocalUrl+'allbookings').
+      axios.post(Local+'allbookings').
       then((res)=>{
         const sorting=[...res.data]
         const sortedData = sorting.sort((a, b) => b.id - a.id);
@@ -176,7 +176,7 @@ const DisplayBooking = () => {
     }, [])
 
     const allBookings=(e)=>{
-        axios.post(LocalUrl+'allbookings').
+        axios.post(Local+'allbookings').
         then((res)=>{
           const sorting=[...res.data]
           const sortedData = sorting.sort((a, b) => b.id - a.id);

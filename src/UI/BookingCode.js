@@ -84,7 +84,7 @@ const BookingCode=()=>{
                 // }
 
                 //axios.post(Local+"mycode",{DeliveryDate,Telephone,Amount}).
-                 axios.post(LocalUrl+"mycode",{DeliveryDate,Telephone,Amount}).
+                 axios.post(Local+"mycode",{DeliveryDate,Telephone,Amount}).
                 then((res)=>{    
                     navigate('/invoice/'+res.data[0].id)  
             

@@ -7,7 +7,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import Navigation from "./Navigation";
 import Swal from 'sweetalert2'
-import { DBURL,LocalUrl } from "../DBUrl";
+import { DBURL,LocalUrl,Local } from "../DBUrl";
 import NotificationDate from "./Date";
 
  const NewBook=()=>{
@@ -49,8 +49,7 @@ import NotificationDate from "./Date";
     }
     const SubmitBooking=(e)=>{
         e.preventDefault();
-        axios.post(LocalUrl+"newbooking",{Bookid,Fullname,Address,Telephone,Purpose,Amount,Cartype,BookingDate,DeliveryDate,Days,PaymentStatus,ConfirmPayment,Email,Service,DeliveryTime,ReminderDate}).
-        then((res)=>{
+      
             Swal.fire({
                 title: 'Do you want Save this Booking ?',
                 showDenyButton: true,
@@ -58,10 +57,14 @@ import NotificationDate from "./Date";
               }).then((result) => {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
+                  axios.post(LocalUrl+"newbooking",{Bookid,Fullname,Address,Telephone,Purpose,Amount,Cartype,BookingDate,DeliveryDate,Days,PaymentStatus,ConfirmPayment,Email,Service,DeliveryTime,ReminderDate}).
+                  then((res)=>{
+                }).catch((err)=>{
+                  throw err
+                })
                    // alert('saved successfully')
-    generateInvoice();
-    // sendEmail();
-    // GetId();
+      generateInvoice();
+      //sendEmail();
           
             
                   Swal.fire('Saved', '', 'success')
@@ -69,11 +72,6 @@ import NotificationDate from "./Date";
                   Swal.fire('Changes are not saved', '', 'info')
                 }
               })
-    
-    
-        }).catch((err)=>{
-          throw err
-        })
         }
 
         const generateInvoice=()=>{
@@ -167,86 +165,80 @@ return(
                 <div className="col-lg-8">
                     <div className="bg-light text-center p-5">
                         <h1 className="mb-4">Book for a Service</h1>
-                        <form onSubmit={SubmitBooking}>
-                
-                            <div className="row g-3">
-                            <div className="col-12 col-sm-6">
-                        <label className="for" >Booking Code</label>
-                        <input type="text" className="form-control border-0" placeholder="Bookingid"  style={{height: 55,}} disabled value={Bookid} onChange={e=>setBookid(e.target.value)} /> 
-                        </div>
-                        <div className="col-12 col-sm-6">
-                                <label className="for" >Email</label>
-                                    <input type="email" className="form-control border-2 font-weight-bold" placeholder="Email(@gmail.com)" style={{height: 55}} value={Email}  onChange={e=>setEmail(e.target.value)}/>
-                                </div>
-                                <div className="col-12 col-sm-6">
-                                <label className="for" >Full Name</label>
-                                    <input type="text" className="form-control border-2 font-weight-bold" placeholder="Your Name" style={{height: 55,}}  value={Fullname} onChange={e=>setFullname(e.target.value)} onKeyUpCapture={RandomKey}/>
-                                </div>
-                                <div className="col-12 col-sm-6">
-                                <label className="for" >Telephone</label>
-                                    <input type="number" className="form-control border-2 font-weight-bold" placeholder="Telephone Number" style={{height: 55}} value={Telephone}  onChange={e=>setTelephone(e.target.value)}/>
-                                </div>
-                        
-                            
-                                <div className="col-12 col-sm-6">
-                                <label className="for" >Address</label>
-                                    <div className="date" id="date1" data-target-input="nearest">
-                                        <input type="text"
-                                            className="form-control border-2 font-weight-bold datetimepicker-input"
-                                            placeholder="Address" data-target="#date1" data-toggle="datetimepicker" style={{height: 55}} value={Address} onChange={e=>setAddress(e.target.value)}/>
-                                    </div>
-                                   
-                                </div>
-                                <div className="col-12 col-sm-6">
-                                <label className="for" >Purpose</label>
-                                    <div className="date" id="date1" data-target-input="nearest">
-                                    <input type="text" className="form-control border-2 font-weight-bold" placeholder="Purpose(Example-for Wedding or Tourism)" style={{height: 55}}  value={Purpose}  onChange={e=>setPurpose(e.target.value)}/>
-                                    </div>
-                                   
-                                </div>
-                                <div className="col-12 col-sm-6">                                   
-                                <label className="for" >Pick Up Date</label>
-                                <div className="row">
-                                <div className="col-6">
-                                <input type="date"  className="form-control border-2 font-weight-bold" placeholder="MM/DD/YYYY"  style={{height: 55}} value={DeliveryDate}  onChange={e=>setDeliveryDate(e.target.value)}/>
-                                </div>
-                                <div className="col-6">
-                                <input type="time"  className="form-control border-2 font-weight-bold" placeholder="-:-:-"  style={{height: 55}} value={DeliveryTime}  onChange={e=>setDeliveryTime(e.target.value)}/>
-                                </div>
-                                </div>
-                                </div>
-                                
-                                <div className="col-12 col-sm-6">
-                                <label className="for" >No. of Days Hired</label>
-                                <input type="number" className="form-control border-2 font-weight-bold" placeholder="No. of Days Hired" style={{height: 55}} value={Days}  onChange={e=>setDays(e.target.value)}/>
-                                </div>
-                                <div className="col-12 col-sm-6">
-                                <label className="text-sm-2" >Car Type</label>
-                                <input type="text" className="form-control border-2 font-weight-bold" placeholder="Enter Type of Car Example(Land Cruiser)" value={Cartype} style={{height: 55}} onChange={e=>setCartype(e.target.value)}/>
-                                </div>
-                                <div className="col-12 col-sm-6">
-                                <label className="for" >Amount(Full Payment/Commitment Fee)</label>
-                                <input type="number" className="form-control border-2 font-weight-bold " placeholder="Enter Amount" style={{height: 55}} value={Amount}  onChange={e=>setAmount(e.target.value)}/>
-                                </div>
-                                
-     
-                                <div className="col-12 ">                                   
-                                
-                                <div className="row">
-                                <div className="col-6">
-                                <button className="btn btn-primary w-100 py-3 " type="submit">Book Now</button>
-                                </div>
-                                <div className="col-6">
-                                <button className="btn btn-warning w-120 py-3" type="submit"> <a href="/code">Booking Code</a></button>
-                                </div>
-                                </div>
-                                </div>
-                            </div>
-                        </form>
+                        <form action="#" onSubmit={SubmitBooking} className="request-form  bg-dark">
+		        
+                  <div className="d-flex">
+                  <div className="form-group mr-2"> 
+                 <textarea name="message"  hidden />
+                  <textarea name="message" hidden="true" /> 
+                  {/* <input type="text" name="message"  className="form-control border-0" placeholder="Bookingid"  style={{height: 55,}} disabled value={newBooking}/> */}
+                    <label htmlFor="" className="label">Booking Code</label>
+			    					<input type="text" className="form-control" placeholder="Booking ID" disabled value={Bookid} onChange={e=>setBookid(e.target.value)} />
+			    				</div>
+                  <div className="form-group"> 
+                  <label htmlFor="" className="label">Email</label>
+			    					<input type="email"  name="user_email"  className="form-control" placeholder="Email(@gmail.com)" value={Email}  onChange={e=>setEmail(e.target.value)}/>
+			    				</div>
+                  </div>
+                  <div className="d-flex">
+                  <div className="form-group mr-2">
+			    					<label htmlFor="" className="label">Name</label>
+                    <input type="text"  name="user_name" placeholder="Your Name" className="form-control border border-white bg-dark" value={Fullname} onChange={e=>setFullname(e.target.value)} onKeyUpCapture={RandomKey}/>
+			    				</div>
+              
+                  </div>
+                  <div className="d-flex">
+                  <div className="form-group mr-2">
+			    					<label htmlFor="" className="label">Telephone</label>
+			    					<input type="number"  name="user_name"  placeholder="Telephone Number" className="form-control"   value={Telephone}  onChange={e=>setTelephone(e.target.value)}/>
+			    				</div>
+                  <div className="form-group">
+			    					<label htmlFor="" className="label">Adress</label>
+                    <input type="text"  name="user_name" placeholder="Address"  className="form-control" value={Address} onChange={e=>setAddress(e.target.value)}/>
+			    					{/* <label htmlFor="" className="label">Purpose</label>
+			    					<input type="text"  name="user_name" className="form-control" placeholder="Purpose(Example-for Wedding or Tourism)" style={{height: 55}}  value={Purpose}  onChange={e=>setPurpose(e.target.value)}/> */}
+			    				</div>
+                  </div>
+
+                  <div className="d-flex">
+                  <div className="form-group mr-2">
+			    				<label htmlFor="" className="label">Purpose</label>
+			    					<input type="text"  name="user_name" className="form-control" placeholder="Purpose(Example-for Wedding or Tourism)" style={{height: 55}}  value={Purpose}  onChange={e=>setPurpose(e.target.value)}/>
+			    				</div>
+                  <div className="form-group">
+			    				<label htmlFor="" className="label">No. of Days Hired</label>
+                  <input type="number" className="form-control border border-white" placeholder="No. of Days Hired" value={Days}  onChange={e=>setDays(e.target.value)}/>
+			    					 
+			    				</div>
+                  </div>
+			    			
+			    				<div className="d-flex">
+			    					<div className="form-group mr-2">
+                    <label htmlFor="" className="label">Pick Up Date</label>
+                    <input type="date"  className="form-control" placeholder="MM/DD/YYYY"  value={DeliveryDate}  onChange={e=>setDeliveryDate(e.target.value)}/>
+			              </div>
+			              <div className="form-group ml-2">
+                    <label htmlFor="" className="label">Pick Up Time</label>
+                    <input type="time"  className="form-control border border-white" placeholder="-:-:-"   value={DeliveryTime}  onChange={e=>setDeliveryTime(e.target.value)}/>
+			              </div>
+		              </div>
+		              <div className="form-group">
+		                <label htmlFor="" className="label">Car Type</label>
+		                <input type="text" className="form-control" placeholder="Enter Type of Car Example(Land Cruiser)" value={Cartype}  onChange={e=>setCartype(e.target.value)}/>
+		              </div>
+                  <div className="form-group">
+		                <label htmlFor="" className="label">Amount(Full Payment/Commitment Fee)</label>
+                    <input type="number" className="form-control" placeholder="Enter Amount"  value={Amount}  onChange={e=>setAmount(e.target.value)}/>
+		              </div>
+			            <div className="form-group">
+			              <input type="submit" value="Rent A Car Now" className="btn btn-secondary py-3 px-4" />
+			            </div>
+			    			</form>
                     </div>
                 </div>
             </div>
         </div>
+        
 
 
 

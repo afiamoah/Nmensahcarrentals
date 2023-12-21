@@ -8,7 +8,7 @@ import { FinalDate } from "./Date";
 import axios from "axios";
 import Navigation from "./Navigation";
 import Swal from 'sweetalert2'
-import { DBURL, LocalUrl } from "../DBUrl";
+import { DBURL, LocalUrl,Local } from "../DBUrl";
 const EditData=()=>{
     const [Data,setData]=useState([])
     const [Fullname,setFullname]=useState('')
@@ -48,9 +48,9 @@ const EditData=()=>{
             }
 
             useEffect(() => {
-                axios.post(LocalUrl+'searchid/',{id}).
+                axios.post(Local+'searchid/',{id}).
                 then((res)=>{
-                  console.log(res.data[0].Bookid)
+                //  console.log(res.data[0].Bookid)
                    setBookid(res.data[0].Bookid)
                    setFullname((res.data[0].Fullname))
                    setTelephone((res.data[0].Telephone))
@@ -65,6 +65,7 @@ const EditData=()=>{
                    setEmail((res.data[0].Email))
                    setService((res.data[0].Service))
                    setDeliveryTime((res.data[0].DeliveryTime))
+                   setPaymentStatus((res.data[0].PaymentStatus))
                    
           
                 }).catch((err)=>{
@@ -83,7 +84,7 @@ const EditData=()=>{
                         /* Read more about isConfirmed, isDenied below */
                         if (result.isConfirmed) {
                            // alert('saved successfully')
-                           axios.post(LocalUrl+'edit',{Fullname,Address,Telephone,Purpose,Amount,Cartype,BookingDate,DeliveryDate,Days,PaymentStatus,ConfirmPayment,Email,Service,DeliveryTime,id}).
+                           axios.post(Local+'edit',{Fullname,Address,Telephone,Purpose,Amount,Cartype,BookingDate,DeliveryDate,Days,PaymentStatus,ConfirmPayment,Email,Service,DeliveryTime,id}).
                            then((res)=>{
                         }).catch((err)=>{
                             throw err

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { FinalDate } from "./Date";
 import axios from "axios";
-import Navigation from "./Navigation";
+import Navigation from "./Navigation2";
 
 const AdminAccess=()=>{
     const [Data,setData]=useState([])
@@ -69,9 +69,9 @@ const DashBoardAccess=(e)=>{
 
     return(
         <>
-        <div>
+        {/* <div className="container-fluid" >
             <Navigation />
-        </div>
+        </div> */}
             <div className="container mt-0" data-wow-delay="0.1s" style={{marginTop: 150}} id="bookingEdit">
             <div className="row justify-content-center">
                 <div className="col-lg-8">
@@ -84,6 +84,7 @@ const DashBoardAccess=(e)=>{
                          </div>           
                                 <div className="col-12">
                                     <button className="btn btn-primary w-100 py-3" type="submit">Get Access</button>
+                                    <button className="btn btn-success w-100 py-3 mt-3" type="button"><a href="/" className="text-white">Home</a></button>
                                 </div>                            
                             
                         </form>
