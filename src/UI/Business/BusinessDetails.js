@@ -1,4 +1,4 @@
-export const BusinessName1="RMB"
+export const BusinessName1="N MENSAH"
 export const BusinessName2="CAR RENTALS"
 export const Logo=""
 export const Whatsapp="https://api.whatsapp.com/send?phone=+233242648325&text=Hello i need a car to rent"
