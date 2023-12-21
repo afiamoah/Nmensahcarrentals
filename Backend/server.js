@@ -1,12 +1,16 @@
 import  express from "express";
 import { connect } from "./src/dbproperties/db.js";
 import cors from 'cors'
-import { FindMyBookingCode,AddNewBooking,AllBookings,FindCode,FindAll,SearchAllBooking,ClientName,ClientTelephone,BookingCode,PendingBookings,DailyBooking,DeleteBooking,EditBooking,SearchAllBookingId} from "./src/dbproperties/queries.js";
+import {createServer} from 'http'
+import { Server } from "socket.io";
+import { FindMyBookingCode,AddNewBooking,AllBookings,FindCode,FindAll,SearchAllBooking,ClientName,ClientTelephone,BookingCode,PendingBookings,DailyBooking,DeleteBooking,EditBooking,SearchAllBookingId,FetchRevenueData,TotalRevenue} from "./src/dbproperties/queries.js";
 
 
 const port=process.env.PORT || 8000
 
 const rent=express()
+
+const server=createServer(rent)
 
 rent.use(express.json());
 rent.use(cors());
@@ -24,7 +28,7 @@ rent.post('/newbooking',(req,res)=>{
     if(err){
         throw err
     }else{
-        console.log('data send')
+       
         res.send({data:data})
     }
     })
@@ -218,7 +222,49 @@ rent.post('/edit',(req,res)=>{
 
 })
 
+rent.post('/revenue',(req,res)=>{
+    connect.query(FetchRevenueData,(err,data)=>{
+        if(err){
+            console.log(err)
+        }else{
+        res.json(data)
+        console.log(data)
+        }
+    })
+})
 
-rent.listen(port,()=>{
+rent.post('/totalrevenue',(req,res)=>{
+    connect.query(TotalRevenue,(err,data)=>{
+    
+        if(err){
+            console.log(err)
+        }else{
+        res.send(data[0])
+       
+        }
+    })
+})
+
+const io=new Server(server,{
+    cors:{
+        origin:"http://localhost:3000",
+        methods:["GET","POST"]
+    }
+})
+
+io.on("connection",(socket)=>{
+   
+
+    socket.on("access_room", (room)=>{
+        console.log(room)
+        socket.join(room)
+    })
+
+    socket.on("notify",(newBooking)=>{
+    socket.to(newBooking.AdminID).emit("show_message",newBooking)
+    })
+})
+
+server.listen(port,()=>{
     console.log("Listening at port "+port)
 })

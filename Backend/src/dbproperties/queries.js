@@ -1,4 +1,4 @@
-export const AllBookings="select * from Booking order id desc"
+export const AllBookings="select * from Booking order by id desc"
 export const  AddNewBooking ="insert into booking set ?"
 
 export const FindCode="select * from booking where Bookid=? and Telephone=? "
@@ -13,3 +13,6 @@ export const ClientName="select * from booking where Fullname=?"
 export const ClientTelephone=" select * from booking where Telephone=?"
 export const  BookingCode="select * from booking where Bookid=?"
 export const  FindMyBookingCode="select * from booking where  DeliveryDate=? and Telephone=? and Amount=?"
+export const FetchRevenueData="select * from booking"
+//export const TotalRevenue="select sum(amount) as total from booking"
+export const TotalRevenue="select sum(amount) as total from booking where PaymentStatus <>'Pending'"
