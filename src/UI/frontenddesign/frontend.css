@@ -1,0 +1,46 @@
+#allfields{
+border:2px solid white;
+}
+
+iframe{
+margin-left: -250px;
+/* border:2px solid red; */
+}
+
+@media(max-width: 768px){
+
+    #maintext{
+        margin-top: -400px;
+     
+        }    
+
+}
+
+
+
+@media(min-width: 900px){
+
+    #maintext{
+        margin-top: -350px;
+        margin-left:-350px;
+     
+        }    
+
+}
+
+#info{
+font-family:"Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+
+#client1{
+    font-size: 18px;
+    font-family:"Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    }
+
+    #strong{color:rgb(0, 255, 47)}
+
+#aboutdetails{
+    font-family:"Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+font-weight: 500;
+}
