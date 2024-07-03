@@ -252,7 +252,7 @@ return(
              {/* <button onClick={notify}>CLICK</button> */}
             
 	          <li className="nav-item"><a href="#aboutus" className="nav-link">About Us</a></li>
-	          <li className="nav-item"><a href="contact.html" className="nav-link">Reigister</a></li>
+	          <li className="nav-item"><a href="contact.html" className="nav-link">Register</a></li>
 	        </ul>
 	      </div>
 	    </div>
