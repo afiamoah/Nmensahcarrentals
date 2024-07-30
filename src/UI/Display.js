@@ -12,8 +12,9 @@ import Navigation from "./Navigation";
 import Swal from 'sweetalert2'
 import { DBURL,LocalUrl,Local } from "../DBUrl";
 import NotificationDate from "./Date";
-import { db } from "../FireBase/firebaseConfig";
-import { collection,getDocs,addDoc,setDoc,deleteDoc,doc} from "firebase/firestore";
+import { db} from "../FireBase/firebaseConfig";
+import { collection,getDocs,addDoc,setDoc,deleteDoc,doc,} from "firebase/firestore";
+import { getStorage,ref,uploadBytes,getDownloadURL } from "firebase/storage";
 
 
 
@@ -84,14 +85,14 @@ const DisplayBooking = () => {
             name: "Name",
             selector: row=> row.Fullname
         },
-        {
-            name: "Booking Code",
-            selector:row=> row.Bookid
-        },
-        {
-            name: "Telephone",
-            selector:row=> row.Telephone
-        },
+        // {
+        //     name: "Booking Code",
+        //     selector:row=> row.Bookid
+        // },
+        // {
+        //     name: "Telephone",
+        //     selector:row=> row.Telephone
+        // },
       
 
         {
@@ -104,32 +105,32 @@ const DisplayBooking = () => {
             selector:row=> row.DeliveryDate
         },
         
-        {
-            name: "Delivery Time",
-            selector:row=> row.DeliveryTime
-        },
+        // {
+        //     name: "Delivery Time",
+        //     selector:row=> row.DeliveryTime
+        // },
 
         {
             name: "Amount",
             selector:row=> row.Amount
         },
 
-        {
-            name: "Payment Status",
-            selector:row=> row.PaymentStatus
-        },
+        // {
+        //     name: "Payment Status",
+        //     selector:row=> row.PaymentStatus
+        // },
 
-        {
-            name: "Confirm Payment",
-           selector: row=> row.ConfirmPayment
+        // {
+        //     name: "Confirm Payment",
+        //    selector: row=> row.ConfirmPayment
 
-        },
-        {
-            name: "Service",
-           selector: row=> row.Service,
-           id:'servicesrow',
+        // },
+        // {
+        //     name: "Service",
+        //    selector: row=> row.Service,
+        //    id:'servicesrow',
 
-        },
+        // },
     {
         name:"View",
         cell: ({id}) => {
@@ -174,14 +175,10 @@ const DisplayBooking = () => {
    console.log(GetAllDocs)
    setData(GetAllDocs)
    setFilterRecords(GetAllDocs)
-
-
- 
     }
 
     const EditDocs=async()=>{
-      const PullAll={
-        
+      const PullAll={      
       }
 const Edit=await setDoc(doc(db,"Bookings",id),{
 
@@ -284,6 +281,25 @@ setData(newdata)
     const btn={ 
          marginLeft:"80px"
         }
+
+        const TableStyle={
+        rows: {
+          style: {
+          fontSize:"5px",
+          fontWeight: "600",
+          backgroundColor: "yellow"
+          }
+        },
+
+        cells:{
+          style:{
+            fontSize: "16px",
+            backgroundColor:"yellow"
+          }
+        }
+
+      
+        }
     
     return (
 
@@ -306,7 +322,9 @@ setData(newdata)
                 <DataTable
                 columns={columns}
                 data={Data}
+                customStyles={TableStyle}
                 pagination
+              
                 >
 
                 </DataTable>

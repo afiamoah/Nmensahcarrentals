@@ -17,7 +17,7 @@ import './assets/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css'
 import 'animate.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Route,Routes,BrowserRouter } from 'react-router-dom';
+import { Route,Routes,BrowserRouter, Router } from 'react-router-dom';
 import DisplayBooking from './UI/Display';
 import MainPage from './UI/Main';
 import EditData from './UI/EditRecords';
@@ -36,6 +36,11 @@ import InvoiceDetails from './Context/MyContext';
 import SearchRevenue from './Revenue/SearchRevenue';
 import ShareRevenue from './Revenue/Revenueshare';
 import RetrieveShare from './Revenue/SharePercentage';
+import AddNewCar from './Vehicle/NewVehicle';
+import DisplayVehicles from './Vehicle/Display/DisplayVehicles';
+import EditRecords from './Vehicle/EditVehicle/Edit';
+import NewDriver from './Driver/AddDriver';
+import GetAllDrivers from './Driver/DisplayDrivers';
 
 function App() {
   return (
@@ -63,6 +68,11 @@ function App() {
   <Route path='/SearchRev' element={<SearchRevenue />}></Route>
   <Route path='/share' element={<ShareRevenue/>}></Route>
   <Route path='/shared' element={<RetrieveShare/>}></Route>
+  <Route path='/vehicle' element={<AddNewCar/>}></Route>
+  <Route path='/vvehicle' element={<DisplayVehicles/>}></Route>
+  <Route path='/EditVehicle/:id' element={< EditRecords/>}></Route>
+  <Route path='/newdriver' element={<NewDriver />}></Route>
+  <Route path='/showdrivers' element={<GetAllDrivers/>}></Route>
   </Routes>
     </BrowserRouter> 
   </div>
